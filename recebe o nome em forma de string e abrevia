@@ -1,0 +1,53 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class ExecString {
+    private String primeiraString;
+    private String segundaString;
+
+    public ExecString(String primeiraString, String segundaString) {
+        this.primeiraString = primeiraString;
+        this.segundaString = segundaString;
+    }
+
+    public int contarOcorrencias() {
+        int ocorrencias = 0;
+        int index = 0;
+        while ((index = primeiraString.indexOf(segundaString, index)) != -1) {
+            ocorrencias++;
+            index += segundaString.length();
+        }
+        return ocorrencias;
+    }
+
+    public void informarEstatisticas() {
+        Map<Character, Integer> estatisticas = new HashMap<>();
+
+        for (char c : primeiraString.toCharArray()) {
+            estatisticas.put(c, estatisticas.getOrDefault(c, 0) + 1);
+        }
+
+        for (char c : segundaString.toCharArray()) {
+            estatisticas.put(c, estatisticas.getOrDefault(c, 0) + 1);
+        }
+
+        System.out.println("Estatísticas dos caracteres:");
+        for (char c : estatisticas.keySet()) {
+            System.out.println("'" + c + "': " + estatisticas.get(c));
+        }
+    }
+
+    public static String obterAbreviatura(String nomeCompleto) {
+        StringBuilder abreviatura = new StringBuilder();
+        String[] palavras = nomeCompleto.split(" ");
+
+        for (int i = 0; i < palavras.length; i++) {
+            String palavra = palavras[i];
+            if (palavra.length() > 2) {
+                abreviatura.append(palavra.charAt(0)).append(". ");
+            }
+        }
+
+        return abreviatura.toString().trim();
+    }
+}
